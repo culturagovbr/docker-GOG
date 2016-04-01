@@ -1,6 +1,6 @@
 # Debian JessiE with Java 7 installed.
 # Build image with:  docker build -t clelson/gog:v1 .
-FROM debian:jessie
+FROM java:openjdk-7-jdk
 #MAINTAINER Clelson Salles Rodrigues, https://github.com/clelson
 
 # Configura o locale para pt_BR.UTF-8
@@ -10,24 +10,24 @@ ENV LANG pt_BR.UTF-8
 ENV LC_ALL pt_BR.UTF-8
 
 # Instalação do java7
-RUN \
-    echo "GOG - Passo 01 - Adicionando o repositório webupd8"  && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list  && \
-    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list  && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886  && \
-    apt-get update  && \
-    \
-    \
-    echo "GOG - Passo 02 - Instalando o Java"  && \
-    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
-    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
-    DEBIAN_FRONTEND=noninteractive  apt-get install -y --force-yes oracle-java7-installer oracle-java7-set-default  && \
-    \
-    \
-    echo "===> clean up..."  && \
-    rm -rf /var/cache/oracle-jdk7-installer  && \
-    apt-get clean  && \
-    rm -rf /var/lib/apt/lists/*
+#RUN \
+#    echo "GOG - Passo 01 - Adicionando o repositório webupd8"  && \
+#    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list  && \
+#    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list  && \
+#    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886  && \
+#    apt-get update  && \
+#    \
+#    \
+#    echo "GOG - Passo 02 - Instalando o Java"  && \
+#    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
+#    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
+#    DEBIAN_FRONTEND=noninteractive  apt-get install -y --force-yes oracle-java7-installer oracle-java7-set-default  && \
+#    \
+#    \
+#    echo "===> clean up..."  && \
+#    rm -rf /var/cache/oracle-jdk7-installer  && \
+#    apt-get clean  && \
+#    rm -rf /var/lib/apt/lists/*
     
 
 # Instalação do Maven

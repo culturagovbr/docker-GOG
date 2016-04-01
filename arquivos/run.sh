@@ -33,5 +33,8 @@ sh /opt/carregaDados.sh
 
 echo -e "\n\n\n\t...A aplicação está funcionando!"
 
-/bin/bash
-
+# /bin/bash
+while :
+do
+	sleep 1
+done

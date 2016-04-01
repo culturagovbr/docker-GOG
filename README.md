@@ -4,7 +4,7 @@ Repositório com arquivos para "dockerizar" o sistema GOG: códigos para criar "
 ## Comandos para utilização do docker neste projeto 
 
 > **Nota**
-> - Instale o Docker na sua máquina para utilizar este projeto https://www.docker.com/
+> - Instale o Docker e o Docker Compose na sua máquina para utilizar este projeto https://www.docker.com/
 
 ### Como usar
 Este projeto deve ser utilizado para a montagem e execução do sistema GOG em um ambiente configurado com os serviços oferecidos pelo Docker. 
@@ -17,28 +17,14 @@ git clone https://github.com/culturagovbr/docker-GOG.git
 ```
 > - Monte as imagens
 
-> É necessário montar duas "images" docker do projeto: uma para o serviço de Banco de Dados (que pode ser acessada a partir do Dockerfile mantido no diretório "postgresql_9.3") ...
+> É necessário criar as duas "images" docker do projeto: uma para o serviço de Banco de Dados (que pode ser acessada a partir do Dockerfile mantido no diretório "postgresql_9.3")
 ```
-# Imagem docker com Banco de Dados
-cd postgresql_9.3
-docker build -t gogdocker:postgresql .
-```
-> ... e outra para o serviço contendo a aplicação (que pode ser produzida a partir do diretório raiz deste projeto)
-```
-# Imagem docker com aplicação GOG
-cd ..
-docker build -t gogdocker:gog.app .
+docker-compose build
 ```
 > - Execute os containers
 
-> Para subir os dois "containers" dockers do projeto deve-se utilizar, na mesma ordem em que estão declarados, os seguintes comandos:
 ```
-# Montagem do container com o Banco de Dados 
-docker run --name postgre9.3 -p 5434:5432 -e POSTGRES_USER=clelsonrodrigues -e POSTGRES_DB=GOG -e POSTGRES_PASSWORD=123456 -d gogdocker:postgresql
-```
-```
-# Montagem do container com o Servidor de Aplicação
-docker run -it -p 8080:8080 -p 9990:9990 -e JBOSS_PASS="jboss" -e HOSTNAMELINK="postgre9.3" --link postgre9.3 --name gog gogdocker:gog.app
+docker-compose up
 ```
 > - Acesse a aplicação
 >   - http://localhost:8080/GOG

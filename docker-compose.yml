@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports: 
+     - 8080:8080
+     - 9990:9990
+    environment:
+     - JBOSS_PASS=jboss
+     - HOSTNAMELINK=db
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./postgresql_9.3
+    ports: 
+     - 5432:5432
+    environment:
+     - POSTGRES_USER=clelsonrodrigues
+     - POSTGRES_DB=GOG
+     - POSTGRES_PASSWORD=123456
